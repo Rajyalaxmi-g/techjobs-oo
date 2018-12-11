@@ -90,4 +90,16 @@ public class Job {
     public int hashCode() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", employer=" + employer +
+                ", location=" + location +
+                ", positionType=" + positionType +
+                ", coreCompetency=" + coreCompetency +
+                '}';
+    }
 }
