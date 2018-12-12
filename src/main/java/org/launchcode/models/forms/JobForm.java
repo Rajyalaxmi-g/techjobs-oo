@@ -35,6 +35,10 @@ public class JobForm {
     private int positionTypeId;
 
 
+    Employer anEmployer;
+    Location anLocation;
+    CoreCompetency anCoreCompetency;
+    PositionType anPositionType;
 
     private ArrayList<Employer> employers;
     private ArrayList<Location> locations;
@@ -50,10 +54,18 @@ public class JobForm {
         */
 
         employers = jobData.getEmployers().findAll();
+
         locations = jobData.getLocations().findAll();
-        coreCompetencies = jobData.getCoreCompetencies().findAll();
+
         positionTypes = jobData.getPositionTypes().findAll();
 
+        coreCompetencies = jobData.getCoreCompetencies().findAll();
+
+
+        anEmployer = jobData.getEmployers().findById(employerId);
+        anLocation = jobData.getLocations().findById(locationId);
+        anPositionType = jobData.getPositionTypes().findById(positionTypeId);
+        anCoreCompetency = jobData.getCoreCompetencies().findById(coreCompetencyId);
     }
 
     public String getName() {
@@ -128,6 +140,37 @@ public class JobForm {
         this.positionTypes = positionTypes;
     }
 
+    public Employer getAnEmployer() {
+        return anEmployer;
+    }
+
+    public void setAnEmployer(Employer anEmployer) {
+        this.anEmployer = anEmployer;
+    }
+
+    public Location getAnLocation() {
+        return anLocation;
+    }
+
+    public void setAnLocation(Location anLocation) {
+        this.anLocation = anLocation;
+    }
+
+    public CoreCompetency getAnCoreCompetency() {
+        return anCoreCompetency;
+    }
+
+    public void setAnCoreCompetency(CoreCompetency anCoreCompetency) {
+        this.anCoreCompetency = anCoreCompetency;
+    }
+
+    public PositionType getAnPositionType() {
+        return anPositionType;
+    }
+
+    public void setAnPositionType(PositionType anPositionType) {
+        this.anPositionType = anPositionType;
+    }
 
     @Override
     public String toString() {
@@ -137,6 +180,10 @@ public class JobForm {
                 ", locationId=" + locationId +
                 ", coreCompetencyId=" + coreCompetencyId +
                 ", positionTypeId=" + positionTypeId +
+                ", anEmployer=" + anEmployer +
+                ", anLocation=" + anLocation +
+                ", anCoreCompetency=" + anCoreCompetency +
+                ", anPositionType=" + anPositionType +
                 ", employers=" + employers +
                 ", locations=" + locations +
                 ", coreCompetencies=" + coreCompetencies +

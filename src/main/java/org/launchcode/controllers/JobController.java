@@ -23,7 +23,7 @@ public class JobController {
 
     // The detail display for a given Job at URLs like /job?id=17
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index(Model model, int id) {
+    public String index(Model model,  int id) {
 
         // TODO #1 - get the Job with the given ID and pass it into the view
         Job jobs = jobData.findById(id);
@@ -34,33 +34,40 @@ public class JobController {
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
+        model.addAttribute("title","Add Job");
         model.addAttribute(new JobForm());
         return "new-job";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model, @Valid JobForm jobForm, Errors errors) {
+    public String add(Model model, @ModelAttribute @Valid JobForm jobForm, Errors errors) {
 
         System.out.println("jobForm object" + jobForm);
+
         // TODO #6 - Validate the JobForm model, and if valid, create a
         // new Job and add it to the jobData data store. Then
         // redirect to the job detail view for the new Job.
-
         if (errors.hasErrors()){
-            return "job/add";
+            model.addAttribute("title","Add Job");
+
+            return "new-job";
         }
         Job job = new Job();
         job.setName(jobForm.getName());
-        job.setEmployer(jobForm.getEmployers().get(jobForm.getEmployerId()));
-        job.setLocation(jobForm.getLocations().get(jobForm.getLocationId()));
-        System.out.println(jobForm.getCoreCompetencies().get(jobForm.getCoreCompetencyId()));
-        job.setCoreCompetency(jobForm.getCoreCompetencies().get(jobForm.getCoreCompetencyId()));
-        job.setPositionType(jobForm.getPositionTypes().get(jobForm.getPositionTypeId()));
-        System.out.println("job object" + job.getName());
+        job.setEmployer(jobData.getEmployers().findById(jobForm.getEmployerId()));
+        job.setLocation(jobData.getLocations().findById(jobForm.getLocationId()));
+        job.setCoreCompetency(jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId()));
+        job.setPositionType(jobData.getPositionTypes().findById(jobForm.getPositionTypeId()));
+
+//        job.setEmployer(jobForm.getEmployers().get(jobForm.getEmployerId()));/?
+//
+//
+          System.out.println("job= " + job);
 
         jobData.add(job);
-
-        return "redirect:";
+        int id = job.getId();
+        model.addAttribute("id",id);
+        return "redirect:?id=" + id;
 
     }
 }

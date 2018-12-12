@@ -10,8 +10,8 @@ public class JobField {
     private static int nextId = 1;
 
     public JobField() {
-        id = nextId;
-        nextId++;
+       id = nextId;
+       nextId++;
     }
 
     public JobField(String aValue) {
